@@ -1,12 +1,18 @@
-# Description 
-Dockerfiles for some SOTA SLAM algorithms (mainly Visual Inertial Odometry with SLAM capabilities). Compiled images could be found [here](https://hub.docker.com/u/kopanev).
+# Description
 
-The repository is part of the publication which is under consideration in the Autonomous Robots journal. 
+Dockerfiles for some SOTA SLAM algorithms (mainly Visual Inertial Odometry with
+SLAM capabilities). Compiled images could be found
+[here](https://hub.docker.com/u/kopanev).
 
-Sharafutdinov, D., Griguletskii, M., Kopanev, P., Kurenkov, M., Ferrer, G., Burkov, A., Gonnochenko, A., & Tsetserukou, D. (2021). **Comparison of modern open-source visual SLAM approaches**. arXiv preprint arXiv:2108.01654. [PDF](https://arxiv.org/pdf/2108.01654.pdf).
+The repository is part of the publication which is under consideration in the
+Autonomous Robots journal.
+
+Sharafutdinov, D., Griguletskii, M., Kopanev, P., Kurenkov, M., Ferrer, G.,
+Burkov, A., Gonnochenko, A., & Tsetserukou, D. (2021). **Comparison of modern
+open-source visual SLAM approaches**. arXiv preprint arXiv:2108.01654.
+[PDF](https://arxiv.org/pdf/2108.01654.pdf).
 
 If you use this repo in academic work, please cite:
-
 
     @article{sharafutdinov2021comparison,
       title={Comparison of modern open-source visual SLAM approaches},
@@ -16,67 +22,86 @@ If you use this repo in academic work, please cite:
       year={2021}
     }
 
-# Available algorithms
-*PS some dockerfiles fail to compile automatically due to the big size or building is in progress*
-## Kimera
-Docker for [Kimera-VIO](https://github.com/MIT-SPARK/Kimera-VIO-ROS) - Visual Inertial Odometry with SLAM capabilities and 3D Mesh generation.
+## Available algorithms
 
-![](https://img.shields.io/docker/pulls/kopanev/kimera)
-![](https://img.shields.io/docker/cloud/automated/kopanev/kimera)
-![](https://img.shields.io/docker/cloud/build/kopanev/kimera)
+*PS some dockerfiles fail to compile automatically due to the big size or
+building is in progress*
+
+## Kimera
+
+Docker for [Kimera-VIO](https://github.com/MIT-SPARK/Kimera-VIO-ROS) - Visual
+Inertial Odometry with SLAM capabilities and 3D Mesh generation.
 
 Possible commands (building, pulling, cleaning):
+
 ```sh
 make help
 ```
+
 Run container:
+
 ```sh
 ./run.sh
 ```
 
 ## Maplab 
-Docker for [Maplab](https://github.com/ethz-asl/maplab) - An open visual-inertial mapping framework. Dockerfile was created using [this](https://github.com/sofwerx/docker-maplab).
+
+Docker for [Maplab](https://github.com/ethz-asl/maplab) - An open
+visual-inertial mapping framework. Dockerfile was created using
+[this](https://github.com/sofwerx/docker-maplab).
 
 ![](https://img.shields.io/docker/pulls/kopanev/maplab)
 ![](https://img.shields.io/docker/cloud/automated/kopanev/maplab)
 ![](https://img.shields.io/docker/cloud/build/kopanev/maplab)
 
 To run, use make:
+
 ```sh
 make
 ```
+
 This will build and run the docker container with the maplab components.
 
 Or you can pull compiled image from Docker Hub:
+
 ```sh
 docker pull kopanev/maplab:version3
 ```
 This version includes CLion and vim for development.
 
 Run container using this command: 
+
 ```sh
 xhost +
 docker run -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY -h $HOSTNAME -v $HOME/.Xauthority:/home/lyonn/.Xauthority kopanev/maplab:version3
 ```
 
 ## VINS-Mono
-Docker for [VINS-Mono](https://github.com/HKUST-Aerial-Robotics/VINS-Mono) - A Robust and Versatile Monocular Visual-Inertial State Estimator.
 
-You need to put this folder into your project (as it was done in the original repo), or modify Dockerfile (to clone repo into the container)
+Docker for [VINS-Mono](https://github.com/HKUST-Aerial-Robotics/VINS-Mono) - A
+Robust and Versatile Monocular Visual-Inertial State Estimator.
+
+You need to put this folder into your project (as it was done in the original
+repo), or modify Dockerfile (to clone repo into the container)
 
 Run container:
+
 ```sh
 make build
-
 ./run.sh LAUNCH_FILE_NAME   # ./run.sh euroc.launch
 ```
 
 ## VINS-Fusion
-Docker for [VINS-Fusion](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion) - An optimization-based multi-sensor state estimator.
 
-You need to put this folder into your project (as it was done in the original repo), or modify Dockerfile (to clone repo into the container)
+Docker for [VINS-Fusion](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion)
+
+- An optimization-based multi-sensor state estimator.
+
+You need to put this folder into your project (as it was done in the original
+repo), or modify Dockerfile (to clone repo into the container)
 
 Run container:
+
 ```sh
 make build
 
@@ -104,6 +129,7 @@ Docker for [OpenVINS](https://github.com/rpng/open_vins) - An open source platfo
 ![](https://img.shields.io/docker/cloud/build/kopanev/openvins)
 
 Possible commands (building, pulling, cleaning):
+
 ```sh
 make help
 ```
@@ -122,6 +148,7 @@ Docker for [VIORB](https://github.com/jingpang/LearnVIORB) - Visual Inertial ORB
 ![](https://img.shields.io/docker/cloud/build/kopanev/viorb)
 
 Possible commands (building, pulling, cleaning):
+
 ```sh
 make help
 ```
@@ -133,6 +160,7 @@ To run the container:
 ```
 
 Then inside the container:
+
 ```sh
 export ROS_PACKAGE_PATH=${ROS_PACKAGE_PATH}:$CATKIN_WS/src/Examples/ROS 
 roslaunch ORB_VIO testeuroc.launch
@@ -141,11 +169,13 @@ roslaunch ORB_VIO testeuroc.launch
 ## OpenVSLAM
 
 Possible commands (building, pulling, cleaning):
+
 ```sh
 make help
 ```
 
 To run the container:
+
 ```sh
 xhost +local
 docker run -it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix:ro ros:openvslam
@@ -160,6 +190,7 @@ docker pull youyu/orb_slam2:ubuntu18
 ([this](https://github.com/yuyou/ORB_SLAM2) fork is used)
 
 To run the container:
+
 ```sh
 xhost +local:
 sudo docker run --name orb -it --rm -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
