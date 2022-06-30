@@ -1,3 +1,6 @@
+ORG ?= netdrones
+REPO ?= vins-mono
+
 all: help
 
 help:
@@ -11,7 +14,10 @@ help:
 	@echo ""
 
 build:
-	@docker build --tag ros:vins-mono -f ./Dockerfile ..
+	docker build --tag $(ORG)/$(REPO) -f ./Dockerfile ..
+
+push: 
+	docker push $(ORG)/$(REPO)
 
 clean:
-	@docker rmi -f ros:vins-mono
+	docker rmi -f $(ORG)/$(REPO)
